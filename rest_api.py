@@ -1,9 +1,10 @@
 import uvicorn
 from database import Database
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import contextlib
 import time
 import threading
+from pydantic import BaseModel
 
 
 DEFAULT_PASSWORD = 'admin'
@@ -17,6 +18,11 @@ db = Database()
 app = FastAPI()
 
 
+class User(BaseModel):
+    username: str
+    password: str
+
+
 @app.get("/")
 def greet():
     return {"message": "Hello, world"}
@@ -25,6 +31,12 @@ def greet():
 @app.get("/users")
 def get_users():
     return db.get_users()
+
+
+@app.post("/users")
+def add_user(user: User):
+    db.add_users([{'username': user.username, 'password': user.password}])
+    return {"message": f"User {user.username} added"}
 
 
 @app.get("/kill")

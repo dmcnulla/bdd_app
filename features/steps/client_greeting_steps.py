@@ -1,9 +1,4 @@
-from behave import given, when, then
-
-
-@given('I have a user rest service')
-def step_impl(context):
-    pass
+from behave import when, then
 
 
 @when('I call the greet endpoint')

@@ -1,7 +1,4 @@
-behave
-pexpect
 uvicorn
 tinydb
 fastapi
-pytest
 httpx
