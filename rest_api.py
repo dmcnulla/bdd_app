@@ -28,6 +28,12 @@ def greet():
     return {"message": "Hello, world"}
 
 
+@app.get("/user/{username}")
+def get_user(username: str):
+    user_record = db.get_user(username=username)
+    return user_record
+
+
 @app.get("/users")
 def get_users():
     return db.get_users()
