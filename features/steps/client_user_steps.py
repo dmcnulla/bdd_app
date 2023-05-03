@@ -1,4 +1,4 @@
-from behave import given, when, then, step
+from behave import given, when, then
 
 
 @given('I have no users')
@@ -63,6 +63,14 @@ def step_impl(context):
         assert actual_users.get(user[0]) == user[1]
 
 
-@step("the user has no password")
+@given("I only have the following users:")
 def step_impl(context):
-    raise NotImplementedError(u'STEP: But the user has no password')
+    context.db.clear()
+    for user in context.table:
+        context.db.add_user(username=user[0], password=user[1])
+
+
+@when('I update the user "{username}" with password "{new_password}"')
+def step_impl(context, username, new_password):
+    context.response = context.client.put(f'/user/{username}', json={'password': new_password})
+    assert context.response.status_code == 200

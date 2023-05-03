@@ -1,5 +1,8 @@
 @rest
 @tier2
+@users
+@add_user
+@add_users
 Feature: Add Users
   As an admin
   I want to add users
@@ -13,7 +16,7 @@ Feature: Add Users
       Then user "elvis" is in the system
       And user "elvis" has a password of "presley"
 
-  @add_user @tier2
+  @tier2
   Scenario Outline: Add new users
       Given I have no users
       When I add a new user "<username>" with password "<password>"
@@ -23,6 +26,7 @@ Feature: Add Users
     Examples:
       | username | password |
       | elvis    | presley  |
+    @tier2
     Examples:
       | username | password |
       | john     | doe      |
@@ -50,10 +54,3 @@ Feature: Add Users
       | elvis    | presley  |
       | john     | doe      |
       | jane     | doe      |
-
-
-  @wip
-  Scenario: Update user's password
-    Given I have a user "elvis" with password "presley"
-    When I update the user "elvis" with password "presley2"
-    Then the user's password is "presley2"

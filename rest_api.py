@@ -23,6 +23,12 @@ class User(BaseModel):
     password: str
 
 
+class UpdateUser(BaseModel):
+    username: str
+    old_password: str
+    new_password: str
+
+
 @app.get("/")
 def greet():
     return {"message": "Hello, world"}
