@@ -3,7 +3,7 @@
 @users
 @add_user
 @add_users
-Feature: Add Users
+Feature: Add User(s)
   As an admin
   I want to add users
   so those users can use the system
@@ -16,7 +16,6 @@ Feature: Add Users
       Then user "elvis" is in the system
       And user "elvis" has a password of "presley"
 
-  @tier2
   Scenario Outline: Add new users
       Given I have no users
       When I add a new user "<username>" with password "<password>"
@@ -41,7 +40,7 @@ Feature: Add Users
 
   @check_users
   @tier2
-  @QTA-2177
+  @QTA-2177 @bug
   Scenario: Existing users can be retrieved
     Given I only have the following users:
       | username | password |

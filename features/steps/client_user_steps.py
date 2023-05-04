@@ -27,7 +27,7 @@ def step_impl(context, username, password):
 
 @when('I retrieve the user "{username}"')
 def step_impl(context, username):
-    context.response = context.client.get(f'/user/{username}')
+    context.response = context.client.get(f'/users/{username}')
     response_json = context.response.json()
     assert context.response.status_code == 200
     assert len(response_json) == 1
@@ -70,7 +70,11 @@ def step_impl(context):
         context.db.add_user(username=user[0], password=user[1])
 
 
-@when('I update the user "{username}" with password "{new_password}"')
-def step_impl(context, username, new_password):
-    context.response = context.client.put(f'/user/{username}', json={'password': new_password})
+@when('I update the user "{username}" to change password "{old_password}" to "{new_password}"')
+def step_impl(context, username, old_password, new_password):
+    context.response = context.client.put(f'/users/{username}', json={
+        'username': username,
+        'old_password': old_password,
+        'new_password': new_password
+    })
     assert context.response.status_code == 200

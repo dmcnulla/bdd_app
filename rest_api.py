@@ -34,7 +34,7 @@ def greet():
     return {"message": "Hello, world"}
 
 
-@app.get("/user/{username}")
+@app.get("/users/{username}")
 def get_user(username: str):
     user_record = db.get_user(username=username)
     return user_record
@@ -43,6 +43,12 @@ def get_user(username: str):
 @app.get("/users")
 def get_users():
     return db.get_users()
+
+
+@app.put("/users/{username}")
+def update_user(username: str, user: UpdateUser):
+    db.update_user_password(username=username, old_password=user.old_password, new_password=user.new_password)
+    return {"message": f"User {username} updated"}
 
 
 @app.post("/users")
